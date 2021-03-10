@@ -21,6 +21,7 @@ option.binary_location = brave_path
 #option.add_argument("--headless")
 
 ref_link = "?a=WZdP1yqAeK"
+scroll_pause_time = 0.5
 
 # Create new Instance of Chrome
 browser = webdriver.Chrome(executable_path=driver_path, chrome_options=option)
@@ -34,9 +35,9 @@ time.sleep(1)
 
 timer_count = 0
 
-xpath_1 = "/html/body/div[3]/main/div/div[1]/div["
+xpath_1 = "/html/body/div[2]/main/div/div[1]/div["
 article_num = 1
-xpath_2 = "]/div[2]/a/img"
+xpath_2 = "]/div[1]/h2/a"
 
 while timer_count < 10:
     browser.get("https://www.publish0x.com/newposts")
@@ -70,9 +71,10 @@ while timer_count < 10:
         except NoSuchElementException:
             browser.get("https://www.publish0x.com/newposts")
             time.sleep(1)
-            browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            view_more = browser.find_element_by_xpath("/html/body/div[3]/main/div/div[2]/div/button")
-            view_more.click()
+            #browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            #view_more = browser.find_element_by_xpath("/html/body/div[3]/main/div/div[2]/div/button")
+            #view_more.click()
+            browser.execute_script("window.scrollTo(0, 1080)")
 
             time.sleep(3)
 
@@ -91,7 +93,7 @@ while timer_count < 10:
             time.sleep(2)
 
         try:
-            slider = browser.find_element_by_xpath("/html/body/div[3]/main/div/div[8]/div/div[1]/form/div/div[2]/input")
+            slider = browser.find_element_by_id("tipslider")
             #browser.execute_script('window.scrollBy(0, 5000)')  # x=0, y=500
             browser.execute_script("arguments[0].scrollIntoView();", slider)
 
@@ -110,9 +112,13 @@ while timer_count < 10:
             print(">happymerchant.jpg")
 
             time.sleep(1)
-
-            tip_button = browser.find_element_by_xpath("/html/body/div[3]/main/div/div[8]/div/div[1]/form/div/div[3]/button")
-            tip_button.click()
+            try:
+                tip_button = browser.find_element_by_xpath("/html/body/div[2]/main/div/div[8]/div/div/div/div/div[3]/button")
+                tip_button.click()/html/body/div[2]/main/div/div[8]/div/div[1]/form/div/div[3]/button
+            except:
+                tip_button = browser.find_element_by_xpath(
+                    "/html/body/div[2]/main/div/div[8]/div/div[1]/form/div/div[3]/button")
+                tip_button.click()
 
             print("Tip submitted")
             timer_count = 0
@@ -135,7 +141,8 @@ while timer_count < 10:
                 time.sleep(1)
             sys.stdout.write("\rComplete!            \n")
 
-        except NoSuchElementException:
+        except NoSuchElementException as e:
+            print(e)
             print("Timer found on page")
             print("Next article")
             article_num += 1
@@ -155,7 +162,7 @@ while timer_count < 10:
             # pass
 
         try:
-            browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            #browser.execute_script("window.scrollTo(0, 1080)")
 
             article_xpath = xpath_1 + str(article_num) + xpath_2
             article = browser.find_element_by_xpath(article_xpath)
@@ -172,8 +179,9 @@ while timer_count < 10:
             time.sleep(2)
 
         except NoSuchElementException:
-            view_more = browser.find_element_by_xpath("/html/body/div[3]/main/div/div[2]/div/button")
-            view_more.click()
+            #view_more = browser.find_element_by_xpath("/html/body/div[2]/main/div/div[2]/div/button")
+            #view_more.click()
+            browser.execute_script("window.scrollTo(0, 1080)")
 
             time.sleep(3)
 
@@ -192,7 +200,7 @@ while timer_count < 10:
             time.sleep(2)
 
         try:
-            slider = browser.find_element_by_xpath("/html/body/div[3]/main/div/div[8]/div/div[1]/form/div/div[2]/input")
+            slider = browser.find_element_by_id("tipslider")
             # browser.execute_script('window.scrollBy(0, 5000)')  # x=0, y=500
             browser.execute_script("arguments[0].scrollIntoView();", slider)
 
@@ -212,9 +220,13 @@ while timer_count < 10:
 
             time.sleep(1)
 
-            tip_button = browser.find_element_by_xpath(
-                "/html/body/div[3]/main/div/div[8]/div/div[1]/form/div/div[3]/button")
-            tip_button.click()
+            try:
+                tip_button = browser.find_element_by_xpath("/html/body/div[2]/main/div/div[8]/div/div/div/div/div[3]/button")
+                tip_button.click()/html/body/div[2]/main/div/div[8]/div/div[1]/form/div/div[3]/button
+            except:
+                tip_button = browser.find_element_by_xpath(
+                    "/html/body/div[2]/main/div/div[8]/div/div[1]/form/div/div[3]/button")
+                tip_button.click()
 
             print("Tip submitted")
             timer_count = 0
