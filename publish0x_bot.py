@@ -141,8 +141,7 @@ while timer_count < 10:
                 time.sleep(1)
             sys.stdout.write("\rComplete!            \n")
 
-        except NoSuchElementException as e:
-            print(e)
+        except:
             print("Timer found on page")
             print("Next article")
             article_num += 1
@@ -249,7 +248,7 @@ while timer_count < 10:
                 time.sleep(1)
             sys.stdout.write("\rComplete!            \n")
 
-        except NoSuchElementException:
+        except:
             print("Timer found on page")
             print("Next article")
             article_num += 1
